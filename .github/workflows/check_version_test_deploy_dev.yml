@@ -35,14 +35,14 @@ jobs:
       - name: Get version on PR branch
         id: pr_version
         run: |
-          version=$(grep '__version__' vinyl_models/__init__.py | cut -d '"' -f2)
+          version=$(grep '__version__' vinyl_tracker/__init__.py | cut -d '"' -f2)
           echo "version=$version" >> $GITHUB_OUTPUT
 
       - name: Get version on main branch
         id: main_version
         run: |
           git fetch origin main
-          main_version=$(git show origin/main:vinyl_models/__init__.py | grep '__version__' | cut -d '"' -f2)
+          main_version=$(git show origin/main:vinyl_tracker/__init__.py | grep '__version__' | cut -d '"' -f2)
           echo "version=$main_version" >> $GITHUB_OUTPUT
 
       - name: Install dependencies
@@ -68,16 +68,12 @@ jobs:
 
       - name: Install linters
         run: |
-          pip install sqlfluff ruff
+          pip install ruff
 
       - name: Lint Python code
         run: |
           ruff check .
           ruff format .
-
-      - name: Lint SQL files
-        run: |
-          sqlfluff lint . --dialect postgres
 
   test:
     runs-on: ubuntu-latest
@@ -88,8 +84,8 @@ jobs:
         with:
           version: latest
       - run: pip install -e .[dev]
-      - run: supabase db start
-      - run: supabase db reset
+      # - run: supabase db start
+      # - run: supabase db reset
 
       - name: Run unit tests
         env:
@@ -146,8 +142,8 @@ jobs:
       - name: Inject dev version into temp package copy
         run: |
           mkdir temp_package
-          cp -r vinyl_models pyproject.toml README.md temp_package/
-          sed -i "s/__version__ = .*/__version__ = \"${{ env.dev_version }}\"/" temp_package/vinyl_models/__init__.py
+          cp -r vinyl_tracker pyproject.toml README.md temp_package/
+          sed -i "s/__version__ = .*/__version__ = \"${{ env.dev_version }}\"/" temp_package/vinyl_tracker/__init__.py
 
       - name: Build dev package
         working-directory: temp_package

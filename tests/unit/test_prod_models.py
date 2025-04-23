@@ -1,4 +1,4 @@
-import vinyl_models.prod_models as vmd
+import vinyl_tracker.prod_models as vmd
 
 
 def test_fetch_record(db_session):
