@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eE  # Exit on error and propagate ERR trap
+# set -eE  # Exit on error and propagate ERR trap
 trap 'echo "Script failed at line $LINENO. Exiting."' ERR
 
 # 1. Destroy existing virtual environment if it exists
