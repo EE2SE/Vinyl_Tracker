@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 
 DATABASE_URL = "postgresql://{}:{}@{}:{}/{}?sslmode=require"
 
-class VinylDB:
+class VinylDBBase:
     """
     Singleton class to manage a database connection using SQLAlchemy.
 
@@ -80,7 +80,7 @@ class VinylDB:
             self.__db_name
         )
         self.engine = create_engine(conn_string)
-        self.session = sessionmaker(bind=engine)
+        self.session = sessionmaker(bind=self.engine)
 
     def _raise_env_error(self, varname: str):
         """
@@ -94,3 +94,19 @@ class VinylDB:
         """
         raise ValueError(f"Variable {varname} not defined in .env file!")
 
+class VinylDB(VinylDBBase):
+
+    def __init__(self, environment: str):
+        super().__init__(environment)
+    
+    def add_new_listing(self):
+        pass
+
+    def update_currency_exchange(self):
+        pass
+
+    def update_total_availibility(self):
+        pass
+
+    def add_record_to_vault(self):
+        pass
