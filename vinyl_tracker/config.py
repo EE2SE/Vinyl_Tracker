@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class APIConfig:
     PAT: str
@@ -9,6 +10,6 @@ class APIConfig:
     TokenAuthURL: str
     AccessTokenURL: str
 
+
 # @dataclass
 # class DBConfig:
-    
