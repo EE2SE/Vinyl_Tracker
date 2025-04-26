@@ -1,4 +1,5 @@
 from vinyl_tracker.discogs_api import DiscogsAPI
+from vinyl_tracker.vinyl_db import VinylDB
 
 
 class Subject:
@@ -37,6 +38,7 @@ class VinylScanner(Subject):
     will scan and notify the upater
     """
 
-    def __init__(self, api: DiscogsAPI):
+    def __init__(self, api: DiscogsAPI, db_engine: VinylDB):
         self._api = api
+        self._db_engine = db_engine
         pass
