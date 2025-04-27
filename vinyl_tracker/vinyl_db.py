@@ -8,7 +8,6 @@ _logger = logging.getLogger(__name__)
 
 DATABASE_URL = "postgresql://{}:{}@{}:{}/{}?sslmode=require"
 
-
 class VinylDBBase:
     """
     Singleton class to manage a database connection using SQLAlchemy.
