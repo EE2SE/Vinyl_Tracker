@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-import requests
 import discogs_client
 import os
 from vinyl_tracker.vinyl_state import VinylState
