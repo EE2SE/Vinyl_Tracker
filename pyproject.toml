@@ -1,6 +1,6 @@
 [project]
 name = "vinyl-tracker"
-description = "Vinyl Web Scraper
+description = "Vinyl Web Scraper"
 dynamic = ["version"]
 authors = [
     { name = "jakub", email = "jakub.m.szypicyn@gmail.com" }
@@ -11,7 +11,8 @@ dependencies = [
     "sentence-transformers>=2.2.2,<3.0.0",
     "vecs>=0.2.4,<0.3.0",
     "matplotlib>=3.7.1,<4.0.0",
-    "vinyl_models=0.5.0"
+    "vinyl_models==0.5.0",
+    "python3-discogs-client",
 ]
 
 [project.optional-dependencies]
@@ -34,3 +35,6 @@ allow-implicit-optional-dependencies = true
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests/"]
