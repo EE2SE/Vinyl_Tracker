@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine, text
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, Session
+from vinyl_models import prod_models as pm
 from dotenv import load_dotenv
 import logging
 import os
@@ -7,6 +8,7 @@ import os
 _logger = logging.getLogger(__name__)
 
 DATABASE_URL = "postgresql://{}:{}@{}:{}/{}?sslmode=require"
+
 
 class VinylDBBase:
     """
@@ -92,7 +94,7 @@ class VinylDBBase:
             self.__db_name,
         )
         self.engine = create_engine(conn_string)
-        self.session = sessionmaker(bind=self.engine)
+        self.session: Session = sessionmaker(bind=self.engine)
 
     def _raise_env_error(self, varname: str):
         """
@@ -126,3 +128,22 @@ class VinylDB(VinylDBBase):
     def add_record_to_vault(self):
         _logger.info("Adding new record to vault")
         pass
+
+    def add_price_to_record(self):
+        _logger.info("Adding new price info to record")
+        pass
+
+    def get_all_records_in_vault(self) -> list[pm.Record] | None:
+        """
+        Fetches all records from the database.
+
+        Args:
+            session (Session): SQLAlchemy session instance.
+
+        Returns:
+            List[Record]: List of all Record instances.
+        """
+        try:
+            return self.session.query(pm.Record).all()
+        except Exception as e:
+            _logger.warning(f"Failed to fetch all records from Supabase: {e}")

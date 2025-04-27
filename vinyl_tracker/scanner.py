@@ -1,5 +1,6 @@
 from vinyl_tracker.discogs_api import DiscogsAPI
 from vinyl_tracker.vinyl_db import VinylDB
+import threading
 
 
 class Subject:
@@ -41,4 +42,8 @@ class VinylScanner(Subject):
     def __init__(self, api: DiscogsAPI, db_engine: VinylDB):
         self._api = api
         self._db_engine = db_engine
+        self.scan_thread = threading.Thread(target=self.start, name="Scanner")
+        pass
+
+    def start(self):
         pass
